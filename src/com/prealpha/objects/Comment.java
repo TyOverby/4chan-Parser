@@ -1,5 +1,7 @@
 package com.prealpha.objects;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,35 +15,30 @@ public class Comment
 	public final String trip;
 	public final String replyTitle;
 	public final String email;
-	public final String sDate;
 	public final Date timeStamp;
 	public final int number;
 	public final Image image;
 	public final ArrayList<String> bodyText;
 	
-	public Comment(String name, String trip,String replyTitle, String email, String sDate, int number, Image i,ArrayList<String> bodyText)
+	public final SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/y(E)H:s");
+	
+	public Comment(String name, String trip,String replyTitle, String email, String sDate, int number, Image i,ArrayList<String> bodyText) throws ParseException
 	{
 		this.name = name;
 		this.trip = trip;
 		this.replyTitle = replyTitle;
 		this.email = email;
-		this.sDate = sDate;
 		this.number = number;
 		this.image = i;
 		this.bodyText = bodyText;
-		
-		this.timeStamp = new Date();
+		this.timeStamp = dateFormat.parse(sDate.trim());
 	}	
 	
-	public static Comment commentParser(Element element)
+	public static Comment commentParser(Element element) throws ParseException
 	{
 		//gets the name of the user.
 		Element nameThing = Helper.getMatches(element, "span", "class", "commentpostername").get(0);
 		String name = nameThing.getValue().trim();
-		if(name.isEmpty()||name ==null)
-		{
-			System.out.println("HOLY SHIT ITS EMPTY");
-		}
 				
 		//gets the email entered
 		String email = null;
@@ -107,10 +104,10 @@ public class Comment
 			bodyText = Helper.getFullText(Helper.getMatches(element, "blockquote", null, null).get(0));
 			
 		}
-		catch(Exception e) {e.printStackTrace();/*Do nothing, it is already null*/}
+		catch(Exception e) {/*Do nothing, it is already null*/}
 		
 		//System.out.println(fileInfo);
 		
-		return new Comment(name,trip,replyTitle, email, date, number, image,bodyText);
+		return new Comment(name,trip,replyTitle, email, date, number, image, bodyText);
 	}
 }

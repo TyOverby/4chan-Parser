@@ -2,6 +2,7 @@ package com.prealpha.objects;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import org.jdom.Document;
@@ -31,16 +32,20 @@ public class Thread
 		
 		ArrayList<Element> comments = Helper.getMatches(dom, "td", "class", "reply");
 		
-		thread.addComment(Comment.commentParser(Helper.getMatches(dom, "form", "name", "delform").get(0)));
+		try 
+		{
+			thread.addComment(Comment.commentParser(Helper.getMatches(dom, "form", "name", "delform").get(0)));
+		} 
+		catch (ParseException e1)
+		{
+			e1.printStackTrace();
+		}
 		
 		for(Element element:comments)
 		{
 			try
 			{
 				Comment newComment = Comment.commentParser(element);
-				
-				//System.out.println(newComment.bodyText);
-				
 				thread.addComment(newComment);
 			}
 			catch(Exception e)

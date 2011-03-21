@@ -27,6 +27,9 @@ public class Helper
 	{
 		tidy.setShowWarnings(false);
 		tidy.setHideComments(true);
+		tidy.setShowErrors(0);
+		tidy.setQuiet(true);
+		tidy.setInputEncoding("UTF-8");
 		
 		InputStream in = new ByteArrayInputStream(page.getBytes());
 		org.w3c.dom.Document dom = tidy.parseDOM(in , null);
@@ -37,6 +40,9 @@ public class Helper
 	{
 		tidy.setShowWarnings(false);
 		tidy.setHideComments(true);
+		tidy.setShowErrors(0);
+		tidy.setQuiet(true);
+		tidy.setInputEncoding("UTF-8");
 		
 		org.w3c.dom.Document dom =tidy.parseDOM(url.openStream(),null);
 		//tidy.pprint(dom, System.out);
@@ -61,21 +67,29 @@ public class Helper
 	
 	public static ArrayList<String> getFullText(Element element)
 	{
-		List contentList =  element.getContent();
-		ArrayList<String> fullText = null;
+		ArrayList<String> fullText = new ArrayList<String>();
 		
-		for(Object o: contentList)
+		for(Object o: element.getContent())
 		{
 			if(o instanceof Element)
 			{
-				fullText.add(((Element) o).getValue());
+				String toAdd = ((Element) o).getValue().trim();
+				
+				if(!toAdd.isEmpty() && !(toAdd==null))
+				{
+					fullText.add(toAdd);
+				}
 			}
 			if(o instanceof Text)
 			{
-				fullText.add((((Text) o).getValue()));
+				String toAdd = (((Text) o).getValue()).trim();
+				
+				if(!toAdd.isEmpty() && !(toAdd==null))
+				{
+					fullText.add(toAdd);
+				}
 			}
 		}
-		
 		return fullText;
 	}
 }
