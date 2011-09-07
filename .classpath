@@ -2,10 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="/home/ty/workspace/other/libraries/jsoup/jsoup-1.6.1.jar" sourcepath="/home/ty/workspace/other/libraries/jsoup/jsoup-1.6.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/ty/workspace/other/libraries/jsoup/jsoup-1.6.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jsoup"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
