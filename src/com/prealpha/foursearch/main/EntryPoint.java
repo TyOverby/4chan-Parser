@@ -1,12 +1,12 @@
-package com.prealpha.main;
+package com.prealpha.foursearch.main;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.prealpha.htmlparser.Parser;
-import com.prealpha.objects.Comment;
-import com.prealpha.objects.Thread;
+import com.prealpha.foursearch.htmlparser.Parser;
+import com.prealpha.foursearch.objects.Comment;
+import com.prealpha.foursearch.objects.Thread;
 
 public class EntryPoint
 {

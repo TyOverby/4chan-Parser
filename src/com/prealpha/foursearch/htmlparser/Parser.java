@@ -1,4 +1,4 @@
-package com.prealpha.htmlparser;
+package com.prealpha.foursearch.htmlparser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,9 +11,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.prealpha.objects.Comment;
-import com.prealpha.objects.Image;
-import com.prealpha.objects.Thread;
+import com.prealpha.foursearch.objects.Comment;
+import com.prealpha.foursearch.objects.Image;
+import com.prealpha.foursearch.objects.Thread;
 
 public class Parser {
 	private static final Pattern sizePattern = Pattern.compile("(\\d*[0-9](|.\\d*[0-9]|,\\d*[0-9])? (KB|MB))");

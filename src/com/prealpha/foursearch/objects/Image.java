@@ -1,4 +1,4 @@
-package com.prealpha.objects;
+package com.prealpha.foursearch.objects;
 
 public class Image
 {

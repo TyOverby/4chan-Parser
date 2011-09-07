@@ -1,4 +1,4 @@
-package com.prealpha.objects;
+package com.prealpha.foursearch.objects;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
