@@ -6,6 +6,7 @@ import java.net.URL;
 
 import com.prealpha.foursearch.htmlparser.Parser;
 import com.prealpha.foursearch.objects.Comment;
+import com.prealpha.foursearch.objects.CommentText;
 import com.prealpha.foursearch.objects.Thread;
 
 public class EntryPoint
@@ -29,9 +30,9 @@ public class EntryPoint
 			if(c.bodyText != null)
 			{
 				printT("==================");
-				for(String s:c.bodyText)
+				for(CommentText.TextElement s:c.bodyText.getTexts())
 				{
-					System.out.println("\t"+s);
+					System.out.println("\t"+s.getClass().getName().split("\\$")[1]+": "+s.toString());
 				}
 			}
 		}
