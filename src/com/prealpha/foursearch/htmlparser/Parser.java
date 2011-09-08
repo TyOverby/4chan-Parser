@@ -29,11 +29,21 @@ public class Parser {
 		// remove invalid tables
 		tables.remove(tables.last());
 		
+		thread.addComment(parseFirst(container));
+		
 		for (Element table : tables) {
 			thread.addComment(parseComment(table));
 		}
 		
 		return thread;
+	}
+	
+	public static Comment parseFirst(Element container){
+		Element e = container.clone();
+		e.select("table").remove();
+		//System.out.println(e);
+		
+		return parseComment(e);
 	}
 	
 	public static Comment parseComment(Element table) {
@@ -49,7 +59,11 @@ public class Parser {
 		//System.out.println(table.toString());
 		
 		// Name of the poster
-		posterName = table.select("span.commentpostername").first().text();
+		try{
+			posterName = table.select("span.commentpostername").first().text();
+		}catch(NullPointerException npe){
+			posterName = table.select("span.postername").first().text();
+		}
 		
 		// Users trip
 		try {
@@ -73,10 +87,14 @@ public class Parser {
 		}
 		
 		// DateString
-		dateS = table.select("td.reply").first().ownText();
+		try{
+			dateS = table.select("td.reply").first().ownText();
+		} catch (NullPointerException npe) {
+			dateS = table.ownText();
+		}
 		
 		// Post number
-		postNumber = Integer.parseInt(table.select("td.reply").first().id());
+		postNumber = Integer.parseInt(table.select("a.quotejs").get(1).text());
 		
 		// Image
 		if (!table.select("span.filesize").isEmpty()) {
@@ -94,17 +112,20 @@ public class Parser {
 	
 	public static Image parseImage(Element imgThumb, Element filesize) {
 		String url;
+		String thumbUrl;
 		String fileName;
 		String data;
 		
 		url = filesize.select("a[target=_blank]").first().attr("href");
+		thumbUrl = imgThumb.attr("src");
+		
 		fileName = filesize.select("a[target=_blank]").first().text();
 		data = filesize.text();
 		
-		return parseImageData(url, fileName, data);
+		return parseImageData(url, thumbUrl, fileName, data);
 	}
 	
-	public static Image parseImageData(String url, String fileName, String data) {
+	public static Image parseImageData(String url, String thumbUrl, String fileName, String data) {
 		// Match the file size
 		Matcher sizePat = sizePattern.matcher(data);
 		sizePat.find();
@@ -115,7 +136,7 @@ public class Parser {
 		String dim = dimPat.group(1);
 		String[] dims = dim.split("x");
 		
-		return new Image(url, fileName, size, Integer.parseInt(dims[0]), Integer.parseInt(dims[1]));
+		return new Image(url, thumbUrl, fileName, size, Integer.parseInt(dims[0]), Integer.parseInt(dims[1]));
 	}
 	
 	public static CommentText parseCommentText(Element blockquote) {

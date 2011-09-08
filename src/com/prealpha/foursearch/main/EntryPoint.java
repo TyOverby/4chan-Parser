@@ -27,13 +27,23 @@ public class EntryPoint
 			{
 				printT("Trip: "+c.trip);
 			}
+			printT("Date: "+c.timeStamp.toString());
 			if(c.bodyText != null)
 			{
 				printT("==================");
 				for(CommentText.TextElement s:c.bodyText.getTexts())
 				{
-					System.out.println("\t"+s.getClass().getName().split("\\$")[1]+": "+s.toString());
+					printT(s.getClass().getName().split("\\$")[1]+": "+s.toString(),2);
 				}
+			}
+			if(c.image!=null){
+				printT("++++++++++++++++");
+				printT(c.image.fileName,2);
+				printT(c.image.thumbUrl,2);
+				printT(c.image.url,2);
+				printT("("+c.image.width+","+c.image.height+")",2);
+				printT(c.image.size,2);
+				
 			}
 		}
 		
@@ -45,6 +55,14 @@ public class EntryPoint
 	}
 	public static void printT(Object o)
 	{
-		System.out.println("\t"+o.toString());
+		printT(o,1);
+	}
+	public static void printT(Object o, int num){
+		String toPrint = o.toString();
+		for(int i=0;i<num;i++){
+			toPrint = "\t"+toPrint;
+		}
+		
+		System.out.println(toPrint);
 	}
 }
