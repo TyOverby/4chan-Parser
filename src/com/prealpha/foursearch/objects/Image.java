@@ -8,7 +8,6 @@ public class Image
 	public final String size;
 	public final int width;
 	public final int height;
-	public final boolean isImage;
 	
 	public Image(String url, String thumbUrl, String fileName, String size,int width, int height)
 	{
@@ -18,7 +17,6 @@ public class Image
 		this.size = size;
 		this.width = width;
 		this.height = height;
-		this.isImage = true;
 	}
 	
 	@Override

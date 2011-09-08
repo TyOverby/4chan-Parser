@@ -5,20 +5,16 @@ import java.util.List;
 
 public class CommentText {
 	public static interface TextElement {}
+	
 
-	public static class QuoteLink implements TextElement {
-		public final int number;
-
-		public QuoteLink(int number) {
-			this.number = number;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(this.number);
-		}
+	private final List<TextElement> texts = new ArrayList<TextElement>();
+	public void addTextElement(TextElement te) {
+		this.texts.add(te);
 	}
-
+	public List<TextElement> getTexts() {
+		return this.texts;
+	}
+	
 	public static class Text implements TextElement {
 		public final String text;
 
@@ -31,9 +27,9 @@ public class CommentText {
 			return this.text;
 		}
 	}
-
-	public static class Quote extends Text {
-		public Quote(String text) {
+	
+	public static class QuoteLink extends Text {
+		public QuoteLink(String text) {
 			super(text);
 		}
 
@@ -43,14 +39,15 @@ public class CommentText {
 		}
 	}
 
+	public static class Quote extends Text {
+		public Quote(String text) {
+			super(text);
+		}
+	}
+
 	public static class Spoiler extends Text {
 		public Spoiler(String text) {
 			super(text);
-		}
-
-		@Override
-		public String toString() {
-			return this.text;
 		}
 	}
 
@@ -61,13 +58,4 @@ public class CommentText {
 		}
 	}
 
-	private final List<TextElement> texts = new ArrayList<TextElement>();
-
-	public void addTextElement(TextElement te) {
-		this.texts.add(te);
-	}
-
-	public List<TextElement> getTexts() {
-		return this.texts;
-	}
 }
